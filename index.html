@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Profile</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #f2f2f2;
+      }
+      .profile {
+        border-radius: 50%;
+        height: 210px;
+      }
+      .portfolio {
+        height: 240px;
+      }
+      img {
+        transition: transform 0.3s ease;
+      }
+      img:hover {
+        transform: scale(1.05);
+      }
+      .container {
+        margin-top: 5%;
+        margin-bottom: 5%;
+      }
+      h2 {
+        margin-top: 40px;
+      }
+      h1,
+      h2,
+      p,
+      div,
+      ul {
+        opacity: 0;
+        animation: fadeInUp 1s ease forwards;
+        animation-delay: 0.5s;
+      }
+      h2 {
+        animation-delay: 0.8s;
+      }
+
+      p,
+      div {
+        animation-delay: 1s;
+      }
+
+      ul {
+        animation-delay: 1.2s;
+      }
+      .card {
+        background: beige;
+        padding: 16px;
+        margin: 16px;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+        <div class="card">
+            <img class="profile" src="me.jpg" alt="My Photo" />
+
+            <h1>Hello, I’m Rizal!</h1>
+            <p>I'm a graduate from GONTOR in 2024 .</p>
+            <p>now i studying at an Islamic University Of Pekalongan</p>
+        </div>
+
+      <h2>Education</h2>
+      <div>
+        <div>IT at Islamic University Of Pekalongan (Now) </div>
+        <div>SPM Ulya Kulliyatul Mu'allimin Al-Islamiyah (KMI) PP Modern Gontor Ponorogo (2020-2024)</div>
+        <div>Pondok Pesantren Modern Al-Manaar Muhammadiyah Boarding School AMBS (2017-2020)</div>
+        <div>SD Negri 02 Klegen (2012-2017)</div>
+      </div>
+      <h2>Skils</h2>
+      <div>Arabic language 50%</div>
+      <div>English language 45%</div>
+      <div>Vidio Editor 50%</div>
+      <div>HTML and CSS 25%</div>
+      <div>Desain grafis 30%</div>
+      <h2>Invest</h2>
+      <div>
+        <div>Health, Skill, Knowledge, Experience, etc. </div>
+      </div>
+      <h2>Flowers</h2>
+      <div>
+        <img class="portfolio" src="flowers/bougenville.jpeg" alt="bougenville" />
+        <img class="portfolio" src="flowers/purple.jpeg" alt="purple" />
+        <img class="portfolio" src="flowers/kamboja.jpeg" alt="kamboja" />
+      </div>
+      <div>
+      <h2>Articles</h2>
+      <div style="display: flex; gap: 20px; justify-content: center;">
+        <div>
+            <h3>How to plant a tomato</h3>
+            <p>First, second, third ..</p>
+        </div>
+        <div>
+            <h3>How to make a hydroponic system</h3>
+            <p>First, second, third ..</p>
+        </div>
+        <div>
+            <h3>How to cultivate oyster mushrooms/jamur tiram </h3>
+            <p>First, second, third ..</p>
+        </div>
+      </div>
+      <h2>Contact</h2>
+      <div>Email: rizalkhairulanam@gmail.com</div>
+      <div>Instagram: @khaerull</div>
+      <div>WhatsApp: 0858 6556 5047</div>
+    </div>
+  </body>
+</html>
