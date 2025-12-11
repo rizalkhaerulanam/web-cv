@@ -1,133 +1,688 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>My Profile</title>
+    <title>Rizal - My Profile</title>
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        background-color: #f2f2f2;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      /* Header Card */
+      .card {
+        background: white;
+        border-radius: 15px;
+        padding: 40px;
+        margin: 30px 0;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        animation: slideInDown 0.8s ease;
+      }
+
       .profile {
         border-radius: 50%;
-        height: 210px;
+        height: 200px;
+        width: 200px;
+        object-fit: cover;
+        margin: 0 auto 20px;
+        border: 5px solid #667eea;
+        animation: zoomIn 0.8s ease;
+        cursor: pointer;
       }
+
+      h1 {
+        color: #333;
+        font-size: 2.5em;
+        margin: 20px 0;
+        animation: fadeInUp 0.8s ease 0.2s backwards;
+      }
+
+      h2 {
+        color: white;
+        font-size: 2em;
+        margin-top: 50px;
+        margin-bottom: 25px;
+        animation: fadeInUp 0.8s ease backwards;
+        position: relative;
+        padding-bottom: 15px;
+      }
+
+      h2:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        border-radius: 2px;
+      }
+
+      h3 {
+        color: #667eea;
+        margin-bottom: 10px;
+      }
+
+      p {
+        color: #666;
+        font-size: 1.1em;
+        line-height: 1.6;
+        animation: fadeInUp 0.8s ease 0.4s backwards;
+      }
+
+      /* Education & Skills Section */
+      .content-box {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 12px;
+        padding: 20px;
+        margin: 15px 0;
+        animation: fadeInUp 0.8s ease backwards;
+        transition: all 0.3s ease;
+      }
+
+      .content-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Skills Section */
+      .skill-item {
+        margin: 20px 0;
+        animation: fadeInUp 0.8s ease backwards;
+      }
+
+      .skill-label {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        color: #333;
+        font-weight: 500;
+      }
+
+      .skill-bar {
+        width: 100%;
+        height: 10px;
+        background: #e0e0e0;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+
+      .skill-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        border-radius: 5px;
+        animation: widthExpand 1.5s ease-out;
+      }
+
+      /* Portfolio Section */
+      .portfolio-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin: 30px 0;
+      }
+
       .portfolio {
-        height: 240px;
+        height: 250px;
+        border-radius: 12px;
+        object-fit: cover;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        transition: all 0.4s ease;
+        animation: fadeInUp 0.8s ease backwards;
+        cursor: pointer;
       }
-      img {
-        transition: transform 0.3s ease;
+
+      .portfolio:hover {
+        transform: scale(1.05) rotate(1deg);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
       }
-      img:hover {
+
+      /* Lightbox */
+      .lightbox {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+
+      .lightbox.active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .lightbox-content {
+        max-width: 90%;
+        max-height: 90vh;
+        position: relative;
+      }
+
+      .lightbox-image {
+        max-width: 100%;
+        max-height: 85vh;
+        border-radius: 8px;
+      }
+
+      .lightbox-close {
+        position: absolute;
+        top: -40px;
+        right: 0;
+        color: white;
+        font-size: 40px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      .lightbox-close:hover {
+        color: #667eea;
+      }
+
+      /* Articles Section */
+      .articles {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        margin: 30px 0;
+      }
+
+      .article-card {
+        background: white;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        animation: fadeInUp 0.8s ease backwards;
+        transition: all 0.3s ease;
+        border-top: 4px solid #667eea;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .article-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+      }
+
+      .article-card h3 {
+        margin-bottom: 15px;
+      }
+
+      .article-preview {
+        flex-grow: 1;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        margin-bottom: 15px;
+      }
+
+      .article-btn {
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        align-self: flex-start;
+      }
+
+      .article-btn:hover {
         transform: scale(1.05);
-      }
-      .container {
-        margin-top: 5%;
-        margin-bottom: 5%;
-      }
-      h2 {
-        margin-top: 40px;
-      }
-      h1,
-      h2,
-      p,
-      div,
-      ul {
-        opacity: 0;
-        animation: fadeInUp 1s ease forwards;
-        animation-delay: 0.5s;
-      }
-      h2 {
-        animation-delay: 0.8s;
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
       }
 
-      p,
-      div {
-        animation-delay: 1s;
+      /* Full Page Article Modal */
+      .article-modal {
+        display: none;
+        position: fixed;
+        z-index: 999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        overflow-y: auto;
       }
 
-      ul {
-        animation-delay: 1.2s;
+      .article-modal.active {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 40px 20px;
       }
-      .card {
-        background: beige;
-        padding: 16px;
-        margin: 16px;
+
+      .article-modal-content {
+        background: white;
+        border-radius: 15px;
+        padding: 40px;
+        max-width: 800px;
+        width: 100%;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        animation: slideInDown 0.5s ease;
       }
-      @keyframes fadeIn {
+
+      .article-modal-close {
+        float: right;
+        font-size: 32px;
+        font-weight: bold;
+        cursor: pointer;
+        color: #667eea;
+        transition: all 0.3s ease;
+      }
+
+      .article-modal-close:hover {
+        color: #764ba2;
+        transform: scale(1.2);
+      }
+
+      .article-modal-content h3 {
+        color: #667eea;
+        font-size: 2em;
+        margin: 20px 0;
+        clear: both;
+      }
+
+      .article-modal-content p {
+        color: #333;
+        margin: 15px 0;
+        text-align: justify;
+      }
+
+      .article-modal-content ul {
+        margin: 15px 0 15px 25px;
+        color: #333;
+      }
+
+      .article-modal-content li {
+        margin: 8px 0;
+        line-height: 1.6;
+      }
+
+      /* Contact Section */
+      .contact-item {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 15px 20px;
+        margin: 10px 0;
+        border-radius: 8px;
+        border-left: 4px solid #667eea;
+        animation: fadeInUp 0.8s ease backwards;
+        transition: all 0.3s ease;
+      }
+
+      .contact-item:hover {
+        transform: translateX(10px);
+        background: white;
+      }
+
+      /* Animations */
+      @keyframes slideInDown {
         from {
           opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
+          transform: translateY(-30px);
         }
         to {
           opacity: 1;
           transform: translateY(0);
         }
       }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes zoomIn {
+        from {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @keyframes widthExpand {
+        from {
+          width: 0;
+        }
+        to {
+          width: 100%;
+        }
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 1.8em;
+        }
+        h2 {
+          font-size: 1.5em;
+        }
+        .card {
+          padding: 25px;
+        }
+        .lightbox-close {
+          top: -30px;
+          font-size: 30px;
+        }
+        .article-modal-content {
+          padding: 20px;
+        }
+      }
     </style>
   </head>
   <body>
     <div class="container">
-        <div class="card">
-            <img class="profile" src="me.jpg" alt="My Photo" />
+      <div class="card">
+        <img class="profile" src="me.jpg" alt="My Photo" onclick="openLightbox(this.src)" />
+        <h1>Hello, I'm Rizal! 👋</h1>
+        <p>Graduate from GONTOR in 2024</p>
+        <p>Currently studying IT at Islamic University Of Pekalongan</p>
+      </div>
 
-            <h1>Hello, I’m Rizal!</h1>
-            <p>I'm a graduate from GONTOR in 2024 .</p>
-            <p>now i studying at an Islamic University Of Pekalongan</p>
+      <h2>📚 Education</h2>
+      <div class="content-box">
+        <div style="margin: 10px 0;">IT at Islamic University Of Pekalongan (Now)</div>
+        <div style="margin: 10px 0;">SPM Ulya Kulliyatul Mu'allimin Al-Islamiyah (KMI) PP Modern Gontor Ponorogo (2020-2024)</div>
+        <div style="margin: 10px 0;">Pondok Pesantren Modern Al-Manaar Muhammadiyah Boarding School AMBS (2017-2020)</div>
+        <div style="margin: 10px 0;">SD Negri 02 Klegen (2012-2017)</div>
+      </div>
+
+      <h2>🎯 Skills</h2>
+      <div class="content-box">
+        <div class="skill-item">
+          <div class="skill-label">
+            <span>Arabic Language</span>
+            <span>50%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-fill" style="width: 50%;"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-label">
+            <span>English Language</span>
+            <span>45%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-fill" style="width: 45%;"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-label">
+            <span>Video Editing</span>
+            <span>50%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-fill" style="width: 50%;"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-label">
+            <span>HTML & CSS</span>
+            <span>25%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-fill" style="width: 25%;"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-label">
+            <span>Graphic Design</span>
+            <span>30%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-fill" style="width: 30%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <h2>🌱 Investment</h2>
+      <div class="content-box">
+        Health, Skill, Knowledge, Experience, and Personal Growth
+      </div>
+
+      <h2>🌸 Flowers Gallery</h2>
+      <div class="portfolio-container">
+        <img class="portfolio" src="bougenville.jpeg" alt="bougenville" onclick="openLightbox(this.src)" />
+        <img class="portfolio" src="purple.jpeg" alt="purple" onclick="openLightbox(this.src)" />
+        <img class="portfolio" src="kamboja.jpeg" alt="kamboja" onclick="openLightbox(this.src)" />
+      </div>
+
+      <h2>📝 Articles</h2>
+      <div class="articles">
+        <div class="article-card">
+          <h3>How to Plant a Tomato: A Step-by-Step Guide 🍅</h3>
+          <div class="article-preview">
+            <p>Tomatoes are one of the most rewarding crops to grow at home. With the right preparation and care, you can enjoy fresh, juicy fruits all season long. Below is a systematic guide to planting tomatoes, whether in your garden bed or in containers.</p>
+          </div>
+          <button class="article-btn" onclick="openArticleModal('article1')">Read Article</button>
         </div>
 
-      <h2>Education</h2>
-      <div>
-        <div>IT at Islamic University Of Pekalongan (Now) </div>
-        <div>SPM Ulya Kulliyatul Mu'allimin Al-Islamiyah (KMI) PP Modern Gontor Ponorogo (2020-2024)</div>
-        <div>Pondok Pesantren Modern Al-Manaar Muhammadiyah Boarding School AMBS (2017-2020)</div>
-        <div>SD Negri 02 Klegen (2012-2017)</div>
-      </div>
-      <h2>Skils</h2>
-      <div>Arabic language 50%</div>
-      <div>English language 45%</div>
-      <div>Vidio Editor 50%</div>
-      <div>HTML and CSS 25%</div>
-      <div>Desain grafis 30%</div>
-      <h2>Invest</h2>
-      <div>
-        <div>Health, Skill, Knowledge, Experience, etc. </div>
-      </div>
-      <h2>Flowers</h2>
-      <div>
-        <img class="portfolio" src="flowers/bougenville.jpeg" alt="bougenville" />
-        <img class="portfolio" src="flowers/purple.jpeg" alt="purple" />
-        <img class="portfolio" src="flowers/kamboja.jpeg" alt="kamboja" />
-      </div>
-      <div>
-      <h2>Articles</h2>
-      <div style="display: flex; gap: 20px; justify-content: center;">
-        <div>
-            <h3>How to plant a tomato</h3>
-            <p>First, second, third ..</p>
+        <div class="article-card">
+          <h3>🌱 What Is Hydroponics?</h3>
+          <div class="article-preview">
+            <p>Hydroponics comes from the Greek words hydro (water) and ponos (labor). Instead of soil, plants grow in inert substrates like coconut coir, perlite, or rockwool, while their roots absorb nutrients directly from water.</p>
+          </div>
+          <button class="article-btn" onclick="openArticleModal('article2')">Read Article</button>
         </div>
-        <div>
-            <h3>How to make a hydroponic system</h3>
-            <p>First, second, third ..</p>
-        </div>
-        <div>
-            <h3>How to cultivate oyster mushrooms/jamur tiram </h3>
-            <p>First, second, third ..</p>
+
+        <div class="article-card">
+          <h3>Cultivating Oyster Mushrooms 🍄</h3>
+          <div class="article-preview">
+            <p>A Practical Guide for Beginners. Oyster mushrooms (Pleurotus ostreatus) are among the easiest and most profitable mushrooms to cultivate. They grow quickly, require simple materials, and can thrive on agricultural waste such as straw or sawdust.</p>
+          </div>
+          <button class="article-btn" onclick="openArticleModal('article3')">Read Article</button>
         </div>
       </div>
-      <h2>Contact</h2>
-      <div>Email: rizalkhairulanam@gmail.com</div>
-      <div>Instagram: @khaerull</div>
-      <div>WhatsApp: 0858 6556 5047</div>
+
+      <h2>📞 Contact</h2>
+      <div class="contact-item">✉️ Email: riz4lkh4erul4n4m@gmail.com</div>
+      <div class="contact-item">
+        <a href="https://www.instagram.com/_khaeruull/" style="text-decoration: none; color: inherit;">
+          📱 Instagram: @_khaeruull
+        </a>
+      </div>
+      <div class="contact-item">
+        <a href="https://wa.me/6285865565047" style="text-decoration: none; color: inherit;">
+          💬 WhatsApp: 0858 6556 5047
+        </a>
+      </div>
     </div>
+
+    <!-- Lightbox for Images -->
+    <div class="lightbox" id="lightbox">
+      <div class="lightbox-content">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <img class="lightbox-image" id="lightbox-image" src="" alt="Full view">
+      </div>
+    </div>
+
+    <!-- Article Modal -->
+    <div class="article-modal" id="articleModal">
+      <div class="article-modal-content" id="articleContent">
+        <span class="article-modal-close" onclick="closeArticleModal()">&times;</span>
+        <div id="modalBody"></div>
+      </div>
+    </div>
+
+    <script>
+      // Lightbox Functions
+      function openLightbox(src) {
+        const lightbox = document.getElementById('lightbox');
+        const image = document.getElementById('lightbox-image');
+        image.src = src;
+        lightbox.classList.add('active');
+      }
+
+      function closeLightbox() {
+        const lightbox = document.getElementById('lightbox');
+        lightbox.classList.remove('active');
+      }
+
+      document.getElementById('lightbox').addEventListener('click', function(e) {
+        if (e.target === this) {
+          closeLightbox();
+        }
+      });
+
+      // Article Modal Functions
+      const articles = {
+        article1: {
+          title: 'How to Plant a Tomato: A Step-by-Step Guide 🍅',
+          content: `
+            <h3>How to Plant a Tomato: A Step-by-Step Guide 🍅</h3>
+            <p>Tomatoes are one of the most rewarding crops to grow at home. With the right preparation and care, you can enjoy fresh, juicy fruits all season long. Below is a systematic guide to planting tomatoes, whether in your garden bed or in containers.</p>
+            <p><strong>🌱 Step 1: Choose Healthy Tomato Plants</strong><br>Start with strong, disease-free transplants or seedlings. Look for plants with dark green leaves and sturdy stems. Avoid plants that are yellowing, leggy, or already flowering too early.</p>
+            <p><strong>🌞 Step 2: Select the Right Location</strong><br>Tomatoes need full sun — at least 6–8 hours of direct sunlight daily. Choose a spot with well-drained soil. If planting in containers, use pots at least 30 cm deep with drainage holes.</p>
+            <p><strong>🌿 Step 3: Prepare the Soil</strong><br>Amend soil with compost or organic matter to improve fertility. Tomatoes prefer slightly acidic soil with a pH of 6.0–6.8. Mix in a balanced fertilizer before planting.</p>
+            <p><strong>🌱 Step 4: Dig the Planting Hole</strong><br>Dig a hole deep enough to bury two-thirds of the stem. Planting deeply encourages roots to grow along the buried stem, making the plant stronger. Remove lower leaves before planting.</p>
+            <p><strong>💧 Step 5: Plant and Water</strong><br>Place the tomato plant in the hole and cover with soil. Water thoroughly right after planting. Keep soil consistently moist but not waterlogged — about 2.5–5 cm of water per week.</p>
+            <p><strong>🪴 Step 6: Provide Support</strong><br>Use stakes, cages, or trellises to support the plant as it grows. This prevents fruit from touching the ground and reduces disease risk.</p>
+            <p><strong>🌸 Step 7: Early Care</strong><br>Pinch off early blossoms so the plant focuses on root and leaf growth. Add mulch around the base to retain moisture and suppress weeds. Monitor for pests like aphids or tomato hornworms.</p>
+            <p><strong>🌿 Step 8: Ongoing Maintenance</strong><br>Fertilize every 2–3 weeks with a tomato-specific fertilizer. Prune suckers to improve airflow. Harvest when tomatoes are firm and fully colored.</p>
+            <p><strong>✅ Conclusion</strong><br>Planting tomatoes is straightforward if you follow these steps: choose healthy plants, prepare soil, plant deeply, water consistently, and provide support. With proper care, you'll enjoy a bountiful harvest of homegrown tomatoes.</p>
+          `
+        },
+        article2: {
+          title: '🌱 What Is Hydroponics?',
+          content: `
+            <h3>🌱 What Is Hydroponics?</h3>
+            <p>Hydroponics comes from the Greek words hydro (water) and ponos (labor). Instead of soil, plants grow in inert substrates like coconut coir, perlite, or rockwool, while their roots absorb nutrients directly from water.</p>
+            <p><strong>✅ Benefits of Hydroponics</strong></p>
+            <ul>
+              <li>Faster growth and higher yields compared to soil-based farming.</li>
+              <li>Efficient water use — up to 90% less water than traditional methods.</li>
+              <li>Space-saving — ideal for urban farming or indoor setups.</li>
+              <li>Cleaner produce — fewer soil-borne pests and diseases.</li>
+            </ul>
+            <p><strong>🛠 Types of Hydroponic Systems</strong></p>
+            <ul>
+              <li><strong>Deep Water Culture (DWC)</strong> - Roots suspended in nutrient solution with air pumps for oxygen. Simple and beginner-friendly.</li>
+              <li><strong>Nutrient Film Technique (NFT)</strong> - Thin film of water flows over roots in channels. Efficient for leafy greens.</li>
+              <li><strong>Ebb and Flow (Flood & Drain)</strong> - Grow bed periodically flooded with nutrient solution, then drained. Good for larger plants.</li>
+              <li><strong>Drip System</strong> - Nutrients dripped directly onto plant roots. Highly controlled, suitable for commercial setups.</li>
+              <li><strong>Aeroponics</strong> - Roots misted with nutrient solution. Advanced, high oxygenation, very fast growth.</li>
+            </ul>
+            <p><strong>📋 Step-by-Step Setup</strong></p>
+            <ul>
+              <li>Choose a system (DWC for beginners, NFT or drip for advanced).</li>
+              <li>Select a growing medium (coconut coir, perlite, rockwool).</li>
+              <li>Prepare nutrient solution — balanced mix of nitrogen, phosphorus, potassium, calcium, magnesium, and trace elements.</li>
+              <li>Install water reservoir and pump — ensures circulation and oxygenation.</li>
+              <li>Plant seedlings — start with healthy transplants.</li>
+              <li>Monitor pH and EC — keep pH between 5.5–6.5 and adjust nutrient strength regularly.</li>
+              <li>Provide light — natural sunlight or LED grow lights if indoors.</li>
+              <li>Maintain system — clean reservoirs, check pumps, and prevent algae growth.</li>
+            </ul>
+            <p><strong>🌿 Best Plants for Hydroponics</strong></p>
+            <ul>
+              <li>Leafy greens: lettuce, spinach, kale.</li>
+              <li>Herbs: basil, mint, cilantro.</li>
+              <li>Fruit crops: tomatoes, cucumbers, strawberries.</li>
+            </ul>
+            <p><strong>🎯 Conclusion</strong></p>
+            <p>A hydroponic system is about precision and control: water, nutrients, oxygen, and light. Start simple with Deep Water Culture, then expand to more advanced systems as you gain experience. With consistent monitoring, hydroponics can give you faster growth, higher yields, and efficient resource use.</p>
+          `
+        },
+        article3: {
+          title: 'Cultivating Oyster Mushrooms 🍄',
+          content: `
+            <h3>Cultivating Oyster Mushrooms 🍄</h3>
+            <p>A Practical Guide for Beginners</p>
+            <p><strong>🌱 Introduction</strong><br>
+            Oyster mushrooms (Pleurotus ostreatus) are among the easiest and most profitable mushrooms to cultivate. They grow quickly, require simple materials, and can thrive on agricultural waste such as straw or sawdust. This makes them ideal for small-scale farmers, students, or hobbyists.</p>
+            <p><strong>🛠 Materials Needed</strong></p>
+            <ul>
+              <li>Oyster mushroom spawn (seed)</li>
+              <li>Substrate: straw, sawdust, or coffee grounds</li>
+              <li>Plastic bags or containers</li>
+              <li>Clean water</li>
+              <li>A humid, well-ventilated growing space</li>
+            </ul>
+            <p><strong>📋 Step-by-Step Process</strong></p>
+            <p><strong>1. Prepare the Substrate</strong></p>
+            <ul>
+              <li>Chop straw or sawdust into small pieces.</li>
+              <li>Pasteurize by boiling or steaming for 1–2 hours to kill contaminants.</li>
+              <li>Drain and cool before use.</li>
+            </ul>
+            <p><strong>2. Inoculation</strong></p>
+            <ul>
+              <li>Mix mushroom spawn evenly into the cooled substrate.</li>
+              <li>Fill plastic bags or containers, compress lightly, and tie.</li>
+              <li>Make small holes for air exchange.</li>
+            </ul>
+            <p><strong>3. Incubation</strong></p>
+            <ul>
+              <li>Store bags in a dark, warm place (20–24°C).</li>
+              <li>Within 2–3 weeks, white mycelium will colonize the substrate.</li>
+            </ul>
+            <p><strong>4. Fruiting</strong></p>
+            <ul>
+              <li>Move bags to a humid environment (85–95% humidity) with indirect light.</li>
+              <li>Cut slits in the bags to allow mushrooms to emerge.</li>
+              <li>Maintain temperature around 18–22°C.</li>
+            </ul>
+            <p><strong>5. Harvesting</strong></p>
+            <ul>
+              <li>Harvest when caps are fully formed but edges are still curled.</li>
+              <li>Twist gently to remove clusters.</li>
+              <li>Expect 2–3 flushes from the same substrate.</li>
+            </ul>
+            <p><strong>🌿 Conclusion</strong><br>
+            Cultivating oyster mushrooms is a sustainable and rewarding practice. With minimal investment, you can produce nutritious food while recycling organic waste. Whether for personal consumption or small business, oyster mushrooms are an excellent crop to start with.</p>
+          `
+        }
+      };
+
+      function openArticleModal(articleId) {
+        const modal = document.getElementById('articleModal');
+        const modalBody = document.getElementById('modalBody');
+        const article = articles[articleId];
+        
+        if (article) {
+          modalBody.innerHTML = article.content;
+          modal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+      }
+
+      function closeArticleModal() {
+        const modal = document.getElementById('articleModal');
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+
+      document.getElementById('articleModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+          closeArticleModal();
+        }
+      });
+    </script>
   </body>
 </html>
